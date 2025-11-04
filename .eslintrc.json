@@ -1,0 +1,18 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:vue/vue3-essential"
+  ],
+  "rules": {
+    "vue/no-parsing-error": ["off"]
+  },
+  "overrides": [
+    {
+      "files": ["*.vue"],
+      "rules": {
+        "vue/no-parsing-error": "off"
+      }
+    }
+  ]
+}
+

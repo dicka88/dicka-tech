@@ -1,0 +1,89 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogList from '../components/BlogList.vue';
+
+// Get all blog posts from content collection
+const allPosts = await getCollection('blog', ({ data }: any) => {
+  return data.draft !== true;
+});
+
+// Sort posts by date (newest first)
+const sortedPosts = allPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => {
+  return b.data.date.valueOf() - a.data.date.valueOf();
+});
+
+// Transform posts to match BlogList component format
+const posts = sortedPosts.map((post: CollectionEntry<'blog'>, index: number) => ({
+  id: index + 1,
+  title: post.data.title,
+  slug: post.slug,
+  excerpt: post.data.description,
+  image: post.data.image,
+  author: post.data.author,
+  date: post.data.date.toISOString().split('T')[0],
+  category: post.data.category,
+  readTime: post.data.readTime
+}));
+---
+
+<BaseLayout 
+  title="Blog - Dicka Tech | Tips & Tutorial Web Development"
+  description="Artikel, tutorial, dan tips seputar web development, SEO, WordPress, React, Laravel, dan teknologi web terkini."
+>
+  <!-- Blog Header -->
+  <section class="pt-32 pb-16 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent dark:text-white mb-6">
+          📚 Blog & Resources
+        </h1>
+        <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-8 font-medium">
+          Artikel, tutorial, dan insight terbaru seputar web development, SEO, dan teknologi digital
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog List Component -->
+  <BlogList client:load posts={posts} />
+
+  <!-- Newsletter Section -->
+  <section class="py-16 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-500 dark:from-primary-800 dark:via-primary-900 dark:to-blue-950 relative overflow-hidden">
+    <!-- Decorative blobs -->
+    <div class="absolute inset-0 opacity-20 dark:opacity-10">
+      <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full filter blur-3xl animate-blob"></div>
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-pink-400 to-purple-600 rounded-full filter blur-3xl animate-blob animation-delay-2000"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+          📬 Subscribe Newsletter
+        </h2>
+        <p class="text-lg text-white/90 mb-8">
+          Dapatkan tips, tutorial, dan update terbaru langsung ke email Anda
+        </p>
+        <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+          <input 
+            type="email" 
+            placeholder="Masukkan email Anda" 
+            class="flex-1 px-6 py-4 rounded-xl outline-none text-gray-900 shadow-lg"
+            required
+          />
+          <button 
+            type="submit"
+            class="bg-white text-purple-600 px-8 py-4 rounded-xl font-bold hover:bg-purple-50 transition-all transform hover:scale-105 shadow-lg"
+          >
+            Subscribe
+          </button>
+        </form>
+        <p class="text-sm text-white/80 mt-4">
+          🔒 Kami menghormati privasi Anda. Unsubscribe kapan saja.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

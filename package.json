@@ -1,0 +1,26 @@
+{
+  "name": "agency-website",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/vue": "^5.1.2",
+    "@iconify/vue": "^5.0.0",
+    "astro": "^4.0.0",
+    "lucide-vue-next": "^0.552.0",
+    "vue": "^3.5.22"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.3.3",
+    "@astrojs/tailwind": "^5.0.3",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.3.3"
+  }
+}

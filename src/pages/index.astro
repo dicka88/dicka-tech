@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.vue';
+import Stats from '../components/Stats.vue';
+import Services from '../components/Services.vue';
+import Process from '../components/Process.vue';
+import TechStack from '../components/TechStack.vue';
+import Portfolio from '../components/Portfolio.vue';
+import Testimonials from '../components/Testimonials.vue';
+import CTA from '../components/CTA.vue';
+import Contact from '../components/Contact.vue';
+---
+
+<BaseLayout title="Dicka Tech - Solusi Digital & Jasa Pembuatan Website Profesional">
+  <Hero client:load />
+  <Stats client:visible />
+  <Services client:visible />
+  <Process client:visible />
+  <TechStack client:visible />
+  <Portfolio client:visible />
+  <Testimonials client:visible />
+  <CTA client:visible />
+  <Contact client:visible />
+</BaseLayout>
+
