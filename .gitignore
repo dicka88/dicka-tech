@@ -18,12 +18,12 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# IDEs
+# IDE
 .vscode/
 .idea/
-*.sublime-project
-*.sublime-workspace
+*.swp
+*.swo
+*~
 
 # Astro
 .astro/
-

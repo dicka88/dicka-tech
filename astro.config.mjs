@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://dickatech.com',
+  output: 'static', // Static site generation for Cloudflare Pages
   integrations: [
     vue(),
     tailwind(),
