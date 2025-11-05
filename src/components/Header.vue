@@ -1,17 +1,15 @@
 <template>
   <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-    :class="scrolled ? 'bg-white/10 dark:bg-gray-900/90 backdrop-blur-xl shadow-2xl shadow-primary-500/10 dark:shadow-primary-900/20 border-b border-white/20 dark:border-gray-800' : 'bg-transparent backdrop-blur-md'">
-    <nav class="container mx-auto px-4 py-5">
+    :class="scrolled ? 'bg-white/25 dark:bg-gray-900/90 backdrop-blur-xl shadow-2xl shadow-primary-500/10 dark:shadow-primary-900/20 border-b border-white/20 dark:border-gray-800 px-4 py-5' : 'bg-transparent backdrop-blur-md px-4 py-5 md:py-9'">
+    <nav class="container mx-auto">
       <div class="flex items-center justify-between">
-        <a href="/" class="flex items-center space-x-2 group">
-          <div
-            class="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary-500/50">
-            <Code2 :size="24" class="text-white" />
-          </div>
-          <span
-            class="text-3xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
-            Dicka
-            <span class="text-sm text-black">Tech</span>
+        <a href="/"
+          class="flex items-center space-x-4 group px-4 py-1 bg-gradient-to-br bg-black text-white hover:scale-105 transition-transform duration-300 shadow-lg">
+          <!-- <img src="/logo.png" alt="Logo"
+            class="w-10 h-10 rounded-xl group-hover:scale-110 transition-transform duration-300 object-contain" /> -->
+          <span class="text-3xl font-bold">
+            Dicka<span class="bg-blue-400 rounded-full aspect-square h-[8px] w-[8px] mx-1 inline-block"></span>
+            <span class="text-sm">Tech</span>
           </span>
         </a>
 
@@ -97,7 +95,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { Code2, MessageCircle, Menu, X, Sun, Moon } from 'lucide-vue-next';
+import { MessageCircle, Menu, X, Sun, Moon } from 'lucide-vue-next';
 import { useTheme } from '../composables/useTheme';
 
 const scrolled = ref(false);
