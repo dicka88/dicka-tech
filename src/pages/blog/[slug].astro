@@ -29,7 +29,38 @@ const post = {
   category: entry.data.category,
   readTime: entry.data.readTime,
   image: entry.data.image,
+  slug: entry.slug,
 };
+
+// Get related posts based on category
+const allBlogPosts = await getCollection('blog', ({ data }: any) => {
+  return data.draft !== true;
+});
+
+// Filter related posts: same category, exclude current post, limit to 3
+const relatedPosts = allBlogPosts
+  .filter((postEntry: CollectionEntry<'blog'>) => {
+    return postEntry.slug !== entry.slug && postEntry.data.category === entry.data.category;
+  })
+  .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => {
+    return b.data.date.getTime() - a.data.date.getTime();
+  })
+  .slice(0, 3);
+
+// If we don't have enough related posts from same category, fill with other recent posts
+if (relatedPosts.length < 3) {
+  const otherPosts = allBlogPosts
+    .filter((postEntry: CollectionEntry<'blog'>) => {
+      return postEntry.slug !== entry.slug && 
+             !relatedPosts.some((rp: CollectionEntry<'blog'>) => rp.slug === postEntry.slug);
+    })
+    .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => {
+      return b.data.date.getTime() - a.data.date.getTime();
+    })
+    .slice(0, 3 - relatedPosts.length);
+  
+  relatedPosts.push(...otherPosts);
+}
 ---
 
 <BaseLayout 
@@ -129,47 +160,37 @@ const post = {
         </div>
 
         <!-- Related Posts -->
-        <div class="mt-16">
-          <h3 class="text-2xl font-bold text-gray-900 mb-6">Artikel Terkait</h3>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <a href="/blog" class="group">
-              <div class="aspect-video bg-gray-200 rounded-lg mb-3 overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1432888622747-4eb9a8f2c293?w=400&q=80" 
-                  alt="Related post"
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
-                10 Tips SEO untuk Meningkatkan Ranking
-              </h4>
-            </a>
-            <a href="/blog" class="group">
-              <div class="aspect-video bg-gray-200 rounded-lg mb-3 overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&q=80" 
-                  alt="Related post"
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
-                React vs Vue.js: Perbandingan
-              </h4>
-            </a>
-            <a href="/blog" class="group">
-              <div class="aspect-video bg-gray-200 rounded-lg mb-3 overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=80" 
-                  alt="Related post"
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
-                Mengapa Laravel Pilihan Terbaik
-              </h4>
-            </a>
+        {relatedPosts.length > 0 && (
+          <div class="mt-16">
+            <h3 class="text-2xl font-bold text-gray-900 mb-6">Artikel Terkait</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedPosts.map((relatedPost: CollectionEntry<'blog'>) => (
+                <a href={`/blog/${relatedPost.slug}`} class="group">
+                  <div class="aspect-video bg-gray-200 rounded-lg mb-3 overflow-hidden">
+                    <img 
+                      src={relatedPost.data.image} 
+                      alt={relatedPost.data.title}
+                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
+                    {relatedPost.data.title}
+                  </h4>
+                  <p class="text-sm text-gray-600 mt-1 line-clamp-2">
+                    {relatedPost.data.description}
+                  </p>
+                  <div class="flex items-center gap-3 mt-2 text-xs text-gray-500">
+                    <span class="bg-primary-100 text-primary-700 px-2 py-0.5 rounded">
+                      {relatedPost.data.category}
+                    </span>
+                    <span>{relatedPost.data.readTime}</span>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   </article>
@@ -179,7 +200,7 @@ const post = {
   .blog-content {
     color: #374151;
     font-size: 1.125rem;
-    line-height: 1.8;
+    line-height: 1.5;
   }
   
   /* Headings */
@@ -207,7 +228,7 @@ const post = {
     font-size: 1.5rem;
     font-weight: 700;
     margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     color: #1f2937;
     line-height: 1.4;
   }
@@ -222,7 +243,7 @@ const post = {
   
   /* Paragraphs */
   .blog-content :global(p) {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     line-height: 1.8;
     color: #374151;
   }
@@ -244,7 +265,7 @@ const post = {
   }
   
   .blog-content :global(li) {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0;
     line-height: 1.8;
     color: #374151;
   }
