@@ -24,54 +24,107 @@ const { Content } = await entry.render();
 // Format the post data
 const post = {
   title: entry.data.title,
+  description: entry.data.description || entry.data.title,
   date: entry.data.date.toISOString().split('T')[0],
+  dateISO: entry.data.date.toISOString(),
   author: entry.data.author,
   category: entry.data.category,
   readTime: entry.data.readTime,
   image: entry.data.image,
   slug: entry.slug,
+  tags: entry.data.tags || [],
 };
 
-// Get related posts based on category
+// Get site URL
+const siteUrl = Astro.site || 'https://tech.dicka.web.id';
+const postUrl = new URL(`/blog/${post.slug}`, siteUrl).toString();
+const imageUrl = post.image.startsWith('http') ? post.image : new URL(post.image, siteUrl).toString();
+
+// Get related posts with improved algorithm
 const allBlogPosts = await getCollection('blog', ({ data }: any) => {
   return data.draft !== true;
 });
 
-// Filter related posts: same category, exclude current post, limit to 3
-const relatedPosts = allBlogPosts
-  .filter((postEntry: CollectionEntry<'blog'>) => {
-    return postEntry.slug !== entry.slug && postEntry.data.category === entry.data.category;
+// Get current post tags
+const currentTags = entry.data.tags || [];
+const currentCategory = entry.data.category;
+
+// Calculate relevance score for each post
+const postsWithScore = allBlogPosts
+  .filter((postEntry: CollectionEntry<'blog'>) => postEntry.slug !== entry.slug)
+  .map((postEntry: CollectionEntry<'blog'>) => {
+    let score = 0;
+    const postTags = postEntry.data.tags || [];
+    
+    // Same category = high priority
+    if (postEntry.data.category === currentCategory) {
+      score += 10;
+    }
+    
+    // Matching tags = medium priority
+    const matchingTags = postTags.filter((tag: string) => 
+      currentTags.some((currentTag: string) => 
+        currentTag.toLowerCase() === tag.toLowerCase()
+      )
+    );
+    score += matchingTags.length * 5;
+    
+    // Recency bonus (newer posts get slight boost)
+    const daysSincePublished = (Date.now() - postEntry.data.date.getTime()) / (1000 * 60 * 60 * 24);
+    if (daysSincePublished < 30) {
+      score += 2;
+    } else if (daysSincePublished < 90) {
+      score += 1;
+    }
+    
+    return { post: postEntry, score };
   })
-  .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => {
-    return b.data.date.getTime() - a.data.date.getTime();
-  })
+  .sort((a, b) => b.score - a.score)
   .slice(0, 3);
 
-// If we don't have enough related posts from same category, fill with other recent posts
-if (relatedPosts.length < 3) {
-  const otherPosts = allBlogPosts
-    .filter((postEntry: CollectionEntry<'blog'>) => {
-      return postEntry.slug !== entry.slug && 
-             !relatedPosts.some((rp: CollectionEntry<'blog'>) => rp.slug === postEntry.slug);
-    })
-    .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => {
-      return b.data.date.getTime() - a.data.date.getTime();
-    })
-    .slice(0, 3 - relatedPosts.length);
-  
-  relatedPosts.push(...otherPosts);
-}
+const relatedPosts = postsWithScore.map(item => item.post);
 ---
 
 <BaseLayout 
   title={`${post.title} - Dicka Tech Blog`}
-  description={post.title}
+  description={post.description}
+  image={post.image}
+  canonical={`/blog/${post.slug}`}
+  type="article"
+  author={post.author}
+  publishedTime={post.dateISO}
+  modifiedTime={post.dateISO}
 >
   <article class="pt-32 pb-16">
     <div class="container mx-auto px-4">
       <!-- Header -->
       <div class="max-w-4xl mx-auto mb-12">
         <div class="mb-6">
+          <!-- Breadcrumbs -->
+          <nav class="mb-4" aria-label="Breadcrumb">
+            <ol class="flex items-center space-x-2 text-sm text-gray-600">
+              <li>
+                <a href="/" class="hover:text-primary-600 transition-colors">Beranda</a>
+              </li>
+              <li>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </li>
+              <li>
+                <a href="/blog" class="hover:text-primary-600 transition-colors">Blog</a>
+              </li>
+              <li>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </li>
+              <li class="text-gray-900 font-medium" aria-current="page">
+                {post.title}
+              </li>
+            </ol>
+          </nav>
+          
           <a href="/blog" class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium mb-4">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -116,7 +169,12 @@ if (relatedPosts.length < 3) {
         <div class="aspect-video rounded-2xl overflow-hidden mb-12">
           <img 
             src={post.image} 
-            alt={post.title}
+            alt={`${post.title} - Featured image`}
+            title={post.title}
+            width="1200"
+            height="675"
+            loading="eager"
+            fetchpriority="high"
             class="w-full h-full object-cover"
           />
         </div>
@@ -181,7 +239,10 @@ if (relatedPosts.length < 3) {
                   <div class="aspect-video bg-gray-200 rounded-lg mb-3 overflow-hidden">
                     <img 
                       src={relatedPost.data.image} 
-                      alt={relatedPost.data.title}
+                      alt={`${relatedPost.data.title} - Related article`}
+                      title={relatedPost.data.title}
+                      width="400"
+                      height="225"
                       class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       loading="lazy"
                     />
@@ -552,4 +613,63 @@ if (relatedPosts.length < 3) {
     }
   });
 </script>
+
+<!-- Article Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.title,
+  "description": post.description,
+  "image": imageUrl,
+  "datePublished": post.dateISO,
+  "dateModified": post.dateISO,
+  "author": {
+    "@type": "Person",
+    "name": post.author,
+    "url": `${siteUrl}/#about`
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dicka Tech",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/logo.png`
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": postUrl
+  },
+  "articleSection": post.category,
+  "keywords": post.tags.join(", "),
+  "wordCount": post.readTime,
+  "inLanguage": "id-ID",
+  "url": postUrl
+})} />
+
+<!-- BreadcrumbList Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Beranda",
+      "item": siteUrl
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": `${siteUrl}/blog`
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": post.title,
+      "item": postUrl
+    }
+  ]
+})} />
 

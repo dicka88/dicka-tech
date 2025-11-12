@@ -111,9 +111,30 @@ const imageUrl = image.startsWith('http') ? image : new URL(image, siteUrl).toSt
       "telephone": "+62-812-3456-7890",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Jl. Sudirman No. 123",
         "addressLocality": "Jakarta",
+        "addressRegion": "DKI Jakarta",
+        "postalCode": "10220",
         "addressCountry": "ID"
       },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "-6.2088",
+        "longitude": "106.8456"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "18:00"
+      },
+      "priceRange": "$$",
       "sameAs": [
         "https://www.facebook.com/dickatech",
         "https://twitter.com/dickatech",

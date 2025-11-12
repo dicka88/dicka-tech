@@ -7,8 +7,11 @@ import Process from '../components/Process.vue';
 import TechStack from '../components/TechStack.vue';
 import Portfolio from '../components/Portfolio.vue';
 import Testimonials from '../components/Testimonials.vue';
+import FAQ from '../components/FAQ.vue';
 import CTA from '../components/CTA.vue';
 import Contact from '../components/Contact.vue';
+
+const siteUrl = Astro.site || 'https://tech.dicka.web.id';
 ---
 
 <BaseLayout title="Dicka Tech - Solusi Digital & Jasa Pembuatan Website Profesional">
@@ -19,7 +22,96 @@ import Contact from '../components/Contact.vue';
   <TechStack client:visible />
   <Portfolio client:visible />
   <Testimonials client:visible />
+  <FAQ client:load />
   <CTA client:visible />
   <Contact client:visible />
 </BaseLayout>
+
+<!-- FAQPage Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Berapa lama waktu yang dibutuhkan untuk membuat website?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Waktu pengerjaan website bervariasi tergantung kompleksitas dan fitur yang dibutuhkan. Website company profile sederhana biasanya selesai dalam 2-3 minggu, sedangkan website e-commerce atau aplikasi custom bisa memakan waktu 4-8 minggu. Kami akan memberikan timeline yang jelas di awal proyek."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah website yang dibuat responsive dan mobile-friendly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ya, semua website yang kami buat menggunakan mobile-first approach dan fully responsive. Website akan tampil sempurna di semua perangkat: desktop, tablet, dan smartphone. Ini penting untuk SEO dan user experience."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah website sudah termasuk optimasi SEO?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ya, semua website yang kami buat sudah dioptimasi untuk SEO (Search Engine Optimization). Ini termasuk: meta tags, structured data, sitemap, fast loading speed, mobile-friendly, dan best practices lainnya. Kami juga menawarkan layanan SEO optimization terpisah untuk meningkatkan ranking di Google."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Platform apa saja yang digunakan untuk membuat website?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kami menggunakan berbagai teknologi modern sesuai kebutuhan: WordPress untuk website yang mudah dikelola, React/Next.js untuk aplikasi web modern, Laravel untuk aplikasi custom yang kompleks, dan Astro untuk website statis yang super cepat. Kami akan merekomendasikan teknologi terbaik untuk proyek Anda."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah saya bisa mengelola konten website sendiri setelah selesai?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tentu saja! Kami akan memberikan training dan dokumentasi lengkap untuk mengelola website. Jika menggunakan WordPress, Anda bisa dengan mudah mengupdate konten melalui admin panel. Untuk website custom, kami akan membuat CMS yang user-friendly atau memberikan dokumentasi lengkap."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Berapa biaya untuk membuat website?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Biaya pembuatan website bervariasi tergantung kebutuhan dan kompleksitas. Website company profile mulai dari Rp 5-10 juta, e-commerce mulai dari Rp 15-25 juta, dan aplikasi custom bisa lebih tinggi. Kami menyediakan paket yang fleksibel dan bisa disesuaikan dengan budget Anda."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah website sudah termasuk hosting dan domain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hosting dan domain biasanya tidak termasuk dalam paket pembuatan website, namun kami bisa membantu Anda mendapatkan hosting dan domain yang sesuai. Kami merekomendasikan hosting yang reliable dan fast untuk performa optimal. Kami juga menawarkan paket maintenance yang termasuk hosting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah ada garansi atau support setelah website selesai?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ya, kami memberikan garansi 3 bulan untuk perbaikan bug dan support gratis. Setelah itu, kami menawarkan paket maintenance bulanan yang mencakup update, backup, security monitoring, dan support. Kami selalu siap membantu Anda kapan saja dibutuhkan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bisakah website diintegrasikan dengan sistem lain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tentu! Kami bisa mengintegrasikan website dengan berbagai sistem seperti: payment gateway (Midtrans, Xendit), CRM, email marketing tools, Google Analytics, social media, dan sistem custom lainnya. Kami akan mendiskusikan kebutuhan integrasi di awal proyek."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bagaimana proses pembayaran?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pembayaran biasanya dilakukan dengan sistem down payment 50% di awal proyek, dan 50% sisanya setelah website selesai dan disetujui. Untuk proyek besar, bisa dibagi menjadi beberapa tahap pembayaran. Kami menerima transfer bank dan payment gateway."
+      }
+    }
+  ]
+})} />
 
