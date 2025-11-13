@@ -127,9 +127,14 @@
           <!-- Main Image -->
           <div class="relative z-10">
             <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop"
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop"
+                srcset="
+                  https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400&auto=format&fit=crop 400w,
+                  https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop 800w,
+                  https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop 1200w
+                " sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                 alt="Tim profesional Dicka Tech sedang berkolaborasi dalam pembuatan website dan solusi digital"
-                title="Tim Web Development Dicka Tech" loading="eager" fetchpriority="high" width="1200" height="800"
+                title="Tim Web Development Dicka Tech" loading="eager" fetchpriority="high" width="800" height="600"
                 class="w-full h-auto object-cover rounded-2xl" />
               <div class="absolute inset-0 bg-gradient-to-t from-primary-900/20 to-transparent"></div>
             </div>

@@ -42,7 +42,7 @@
           class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl dark:shadow-primary-900/20 transition-all duration-300 transform hover:-translate-y-2 cursor-pointer bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
           <div class="aspect-video relative overflow-hidden">
             <!-- Project Image -->
-            <img :src="project.image" :alt="project.title"
+            <img :src="project.image" :alt="project.title" width="800" height="450"
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               loading="lazy" />
 

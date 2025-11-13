@@ -62,7 +62,12 @@
           <a :href="`/blog/${post.slug}`" class="block cursor-pointer" :aria-label="`Baca artikel: ${post.title}`">
             <!-- Image -->
             <div class="relative overflow-hidden aspect-video bg-gray-200">
-              <img :src="post.image" :alt="post.title"
+              <img 
+                :src="post.image" 
+                :alt="post.title"
+                width="800"
+                height="450"
+                loading="lazy"
                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
               <div class="absolute top-4 left-4">
                 <span class="bg-primary-600 text-white px-3 py-1 rounded-lg text-xs font-semibold">

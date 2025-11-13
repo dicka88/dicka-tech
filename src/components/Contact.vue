@@ -32,7 +32,7 @@
 
       <!-- Quick Contact Buttons -->
       <div class="flex flex-wrap justify-center gap-4 mb-12">
-        <a href="https://wa.me/628515555555" target="_blank"
+        <a href="https://wa.me/628515555555" target="_blank" rel="noopener noreferrer"
           class="group flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all">
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
             <path
