@@ -387,8 +387,3 @@ Pilih platform yang sesuai dengan kebutuhan tim, budget, dan technical requireme
 Tim kami berpengalaman dalam implementasi Headless CMS dengan berbagai framework modern. [Hubungi kami](/#contact) untuk konsultasi gratis!
 
 ---
-
-**Artikel terkait:**
-- Mengenal JAMstack: Arsitektur Modern untuk Web
-- Tren Web Design 2024 yang Wajib Anda Ketahui
-- Panduan Lengkap Membuat Website Profesional
