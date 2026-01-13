@@ -49,7 +49,7 @@ Artikel ini akan membahas secara mendalam tentang Headless CMS, perbandingan pla
 
 ### 1. Strapi (Open Source)
 
-![Strapi Logo](https://strapi.io/assets/strapi-logo-dark.svg)
+![Strapi Logo](https://www.grapestechsolutions.com/wp-content/uploads/2023/09/what-is-strapi.jpg)
 
 Strapi adalah Headless CMS open-source berbasis Node.js yang paling populer saat ini.
 
@@ -95,7 +95,7 @@ query {
 
 ### 2. Sanity
 
-![Sanity Logo](https://cdn.sanity.io/images/3do82whm/next/51af00784c5571c0dc1f7f9c27f0517c331a8d05-353x71.svg)
+![Sanity Logo](https://media.licdn.com/dms/image/v2/D4D12AQFKtXLLsNLDyw/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1708969830468?e=2147483647&v=beta&t=opMLqRgFyW7n0DOAQ_LWB7IPgyMglr0FRAF3MPz2RKQ)
 
 Sanity adalah platform konten yang powerful dengan real-time collaboration dan customizable studio.
 
@@ -134,7 +134,7 @@ const query = `*[_type == "post" && publishedAt < now()] | order(publishedAt des
 
 ### 3. Contentful
 
-![Contentful Logo](https://images.ctfassets.net/fo9twyrwpveg/44baP9Gtm8qE2Umm8CQwQk/c43325463d1cb5f26dfc1c4bcb3a0fd6/Contentful_Logo_2023.svg)
+![Contentful Logo](https://cmscritic.com/ms-content/uploads/2025/03/contentful-ai-personalization-featured.jpg?format=auto&width=2048)
 
 Contentful adalah enterprise-grade Headless CMS dengan fokus pada scalability dan reliability.
 
@@ -157,7 +157,7 @@ Contentful adalah enterprise-grade Headless CMS dengan fokus pada scalability da
 
 ### 4. Payload CMS
 
-![Payload CMS Logo](https://payloadcms.com/images/og-image.jpg)
+![Payload CMS Logo](https://camo.githubusercontent.com/0e6c7ed3c7aad28ebce43953543f211dbe4e3962ee5f3ba02a46947f50b5b437/68747470733a2f2f7061796c6f6164636d732e636f6d2f696d616765732f6f672d696d6167652e6a7067)
 
 Payload adalah newcomer yang powerful, berbasis TypeScript dengan developer experience yang excellent.
 
@@ -312,49 +312,6 @@ const { data: articles } = await response.json();
 3. **Budget terbatas** - Tidak ada resource untuk development custom
 4. **Time-to-market urgent** - Perlu launch dalam hitungan hari
 5. **Built-in features needed** - E-commerce, SEO tools, dll.
-
-## Best Practices
-
-### 1. Content Modeling
-
-```
-✅ DO:
-- Plan content types before implementation
-- Use relationships for connected content
-- Keep content atomic dan reusable
-
-❌ DON'T:
-- Hardcode presentation in content
-- Create overly complex nested structures
-- Mix content dengan layout information
-```
-
-### 2. API Design
-
-```typescript
-// Good: Specific queries
-const featuredPosts = await client.fetch(`
-  *[_type == "post" && featured == true][0...3]
-`);
-
-// Bad: Fetch everything dan filter client-side
-const allPosts = await client.fetch(`*[_type == "post"]`);
-const featured = allPosts.filter(p => p.featured);
-```
-
-### 3. Caching Strategy
-
-```typescript
-// Next.js dengan ISR
-export async function generateStaticParams() {
-  const posts = await getPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
-
-export const revalidate = 3600; // Revalidate setiap 1 jam
-```
 
 ## Migration dari WordPress
 
