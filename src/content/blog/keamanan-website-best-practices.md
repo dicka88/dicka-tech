@@ -1,7 +1,7 @@
 ---
 title: 'Keamanan Website: Best Practices yang Harus Diterapkan'
 description: 'Panduan komprehensif tentang security best practices untuk melindungi website Anda dari serangan cyber.'
-date: 2023-12-28
+date: 2025-11-06
 author: 'Admin'
 category: 'Security'
 readTime: '11 min'

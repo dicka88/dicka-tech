@@ -1,7 +1,7 @@
 ---
 title: 'Optimasi Performa Website: Panduan Lengkap dari A sampai Z'
 description: 'Teknik-teknik optimasi website mulai dari image compression, lazy loading, caching, hingga CDN implementation.'
-date: 2024-01-05
+date: 2025-11-06
 author: 'Admin'
 category: 'Performance'
 readTime: '12 min'

@@ -1,7 +1,7 @@
 ---
 title: 'WordPress vs Custom Development: Mana yang Lebih Baik?'
 description: 'Pertimbangan penting dalam memilih antara WordPress dan custom development untuk project website Anda.'
-date: 2024-01-03
+date: 2025-11-06
 author: 'Admin'
 category: 'CMS'
 readTime: '9 min'

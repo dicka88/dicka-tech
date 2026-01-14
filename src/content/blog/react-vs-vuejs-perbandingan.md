@@ -1,7 +1,7 @@
 ---
 title: 'React vs Vue.js: Framework Mana yang Tepat untuk Proyek Anda?'
 description: 'Analisis mendalam perbandingan React dan Vue.js dari segi performa, learning curve, ecosystem, dan use case terbaik.'
-date: 2024-01-10
+date: 2025-11-06
 author: 'Admin'
 category: 'JavaScript'
 readTime: '10 min'

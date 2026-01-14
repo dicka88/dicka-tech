@@ -1,7 +1,7 @@
 ---
 title: 'Mengapa Laravel Adalah Pilihan Terbaik untuk Backend Development'
 description: 'Kenali keunggulan Laravel sebagai framework PHP modern yang powerful, elegant, dan memiliki komunitas yang besar.'
-date: 2024-01-08
+date: 2025-11-06
 author: 'Admin'
 category: 'Backend'
 readTime: '7 min'

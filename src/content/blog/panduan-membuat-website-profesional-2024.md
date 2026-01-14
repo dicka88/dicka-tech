@@ -1,7 +1,7 @@
 ---
-title: 'Panduan Lengkap Membuat Website Profesional di 2024'
+title: 'Panduan Lengkap Membuat Website Profesional di 2025'
 description: 'Pelajari langkah-langkah penting dalam membuat website profesional yang modern, cepat, dan SEO-friendly untuk bisnis Anda.'
-date: 2024-01-15
+date: 2025-11-06
 author: 'Admin'
 category: 'Web Development'
 readTime: '8 min'

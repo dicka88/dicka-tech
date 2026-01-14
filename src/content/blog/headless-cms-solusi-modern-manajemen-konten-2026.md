@@ -237,7 +237,7 @@ export const client = createClient({
   projectId: process.env.SANITY_PROJECT_ID,
   dataset: 'production',
   useCdn: true,
-  apiVersion: '2024-01-01',
+  apiVersion: '2025-01-01',
 });
 
 // app/blog/page.tsx

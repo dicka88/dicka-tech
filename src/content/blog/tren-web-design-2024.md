@@ -1,7 +1,7 @@
 ---
 title: 'Tren Web Design 2024 yang Wajib Anda Ketahui'
 description: 'Eksplorasi tren terbaru dalam web design seperti glassmorphism, 3D elements, micro-interactions, dan minimalism.'
-date: 2024-01-01
+date: 2025-11-06
 author: 'Admin'
 category: 'Design'
 readTime: '8 min'

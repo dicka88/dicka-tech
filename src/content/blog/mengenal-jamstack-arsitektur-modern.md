@@ -1,7 +1,7 @@
 ---
 title: 'Mengenal Jamstack: Arsitektur Modern untuk Website Cepat'
 description: 'Apa itu Jamstack dan bagaimana arsitektur ini dapat memberikan performa website yang luar biasa cepat.'
-date: 2023-12-25
+date: 2025-11-06
 author: 'Admin'
 category: 'Architecture'
 readTime: '10 min'

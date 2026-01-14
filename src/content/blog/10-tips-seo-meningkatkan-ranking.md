@@ -1,7 +1,7 @@
 ---
 title: '10 Tips SEO untuk Meningkatkan Ranking Website Anda'
 description: 'Strategi SEO terbukti yang dapat meningkatkan visibility website Anda di mesin pencari Google dan mendatangkan traffic organik.'
-date: 2024-01-12
+date: 2025-11-06
 author: 'Admin'
 category: 'SEO'
 readTime: '6 min'
@@ -228,7 +228,7 @@ Schema markup membantu Google memahami content website Anda dan bisa menghasilka
   "@type": "Article",
   "headline": "10 Tips SEO",
   "author": "Admin",
-  "datePublished": "2024-01-12"
+  "datePublished": "2025-01-12"
 }
 ```
 
